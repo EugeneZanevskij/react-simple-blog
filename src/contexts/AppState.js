@@ -14,6 +14,14 @@ const appReducer = (state, action) => {
         posts: [action.payload, ...state.posts],
       };
     }
+    case 'UPDATE_POST': {
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post.id === action.payload.id ? action.payload : post
+        ),
+      };
+    }
     case 'SET_DARK_THEME': {
       return {
         ...state,
@@ -71,6 +79,13 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  const updatePost = (post) => {
+    dispatch({
+      type: 'UPDATE_POST',
+      payload: post,
+    });
+  }
+
   const setDarkTheme = (bool) => {
     dispatch({
       type: 'SET_DARK_THEME',
@@ -85,6 +100,7 @@ export const AppProvider = ({ children }) => {
         darkTheme: state.darkTheme,
         deletePost,
         addPost,
+        updatePost,
         setDarkTheme,
       }}
     >
