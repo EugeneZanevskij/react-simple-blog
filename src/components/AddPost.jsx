@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AppContext } from '../contexts/AppState';
 
 const AddPost = ({ closeModal }) => {
+  const { addPost } = useContext(AppContext);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [error, setError] = useState(false);
@@ -10,7 +12,7 @@ const AddPost = ({ closeModal }) => {
 
     if (!title || !body) return setError('All fields are required');
 
-    console.log({ title, body });
+    addPost({ title, body });
     closeModal();
   };
 

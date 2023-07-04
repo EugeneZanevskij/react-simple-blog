@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import PostItem from './PostItem';
+import { AppContext } from '../contexts/AppState';
 
 const PostList = () => {
-  const posts = [{ id: 1, title: 'a title', body: 'a body' }];
+  const { posts } = useContext(AppContext);
 
   return (
     <ul>
