@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 import { AppContext } from '../contexts/AppState';
 
-const AddPost = ({ closeModal }) => {
-  const { addPost } = useContext(AppContext);
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+const AddPost = ({ closeModal, post }) => {
+  const { addPost, updatePost } = useContext(AppContext);
+  const [title, setTitle] = useState(post?.title || '');
+  const [body, setBody] = useState(post?.body || '');
   const [error, setError] = useState(false);
 
   const validateInputs = (e) => {
@@ -12,7 +12,7 @@ const AddPost = ({ closeModal }) => {
 
     if (!title || !body) return setError('All fields are required');
 
-    addPost({ title, body });
+    post ? updatePost({ id: post.id, title, body }) : addPost({ title, body });
     closeModal();
   };
 
